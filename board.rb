@@ -15,35 +15,37 @@ class Board
 
   # ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
   # !! Important !!
-  # Note the method #indexes_at pulls indexes for the REVERSED VERSION OF THE @data ARRAY. i.e. @data.reverse
+  # Note the method #indexes_at pulls indexes for the REVERSED VERSION OF THE @data ARRAY. (i.e. @data.reverse)
   # We do this because it is easier to simply reverse the array and insert based on the tile data given to us as an argument.
   # This also makes it so we can set the strings for 'empty' spaces as nil values if we want to without it causing side-effects.
   # 
   # This circumvents having to check each element in the nested array when all we want to do is insert something. The size,
   # layout, and ordering of the board stays consistent, which also allows us to do this without having to worry about edge-cases. 
   # 
-  # Due to how we expect it to be displayed (in browser and console) as: 
+  # Due to how we expect the board to be displayed (in browser and console) as: 
   #   x (letters) on bottom, y (numbers) on left  
+  #   (BEFORE @data.reverse is called - display mode)
   #   _
   #   
+  #    |       h8
   #    |
   #    |
-  #    |
-  #   y|_______
+  #   y|a1_______
   #     x (letters)
   # 
-  # as opposed to like this in a code representation
+  # as opposed to like this in a 2D array representation
   #   x (letters) on top, y on left
+  #   (AFTER @data.reverse is called - 2D array mode)
   #   _
   #   
-  #   x (letters)
+  #   x indexes (letters)
   #    ________
-  #  y|
+  #  y|a1
   #   |
   #   |
-  #   |
+  #   |      h8
 
-  # We just have to pivot on the x axis, essentially. 
+  # We just have to 'pivot' on the x axis to transform it back and forth visually and structurally. 
   # 
   # It is easier to treat the array as if it has a 'pivot point' at
   # the top of it that allows us to translate our visual representation into a 'code' representation.
@@ -52,10 +54,12 @@ class Board
   # The method #place! automatically does this flip-flop for us using reversed_data and calling reversed_data.reverse
   # after it is done appending the correct objects. 
   # 
-  # In short........
+  # "I wrote ths code but my data is backwards...?"
   # 
-  # IF YOU ARE TRYING TO PLACE A PIECE, REMEMBER TO EITHER USE #place! USING DATA FROM THE METHOD #indexes_at OR REVERSE THE 
-  # @data ARRAY BEFORE SETTING VALUES TO IT!
+  # "Look at #place!, then look at the graphic above. You need to reverse @data BEFORE you 
+  # insert at an index because we have it in a kind of semantic 'display mode'
+  # by default, and reversing (@data.reverse) switches it from 'display mode' to '2d array mode', 
+  # then back again if you call #reverse one more time."
   # 
   # ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
 
@@ -79,6 +83,7 @@ class Board
     indexes = indexes_at(tile)
 
     # Remember the important comment above? Read it again if you don't understand why we are reversing here. :)
+    # reversed_data is NOT setting @data here. 
     reversed_data = @data.reverse
 
     # Assigning simple variables to y and x for clarity...
