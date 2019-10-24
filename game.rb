@@ -1,4 +1,4 @@
-require 'awesome_print'
+# require 'awesome_print'
 
 require_relative './piece.rb'
 Dir["./pieces/*.rb"].each {|file| require file }
