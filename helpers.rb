@@ -12,6 +12,8 @@ module BoardHelper
     }[term]
   end
 
+  # You may find this useful if you are using strings to represent
+  # where your pieces are on the board. 
   def self.letter_to_piece(term, color, location)
     return {
       "p" => Pawn.new(color, location),
@@ -39,8 +41,7 @@ module BoardHelper
       },
       bishop: {
         white: ["c1", "f1"],
-        black: ["c8", "f8"]
-        
+        black: ["c8", "f8"]  
       },
       queen: {
         white: ["e1"],

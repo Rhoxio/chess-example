@@ -49,12 +49,11 @@ class Board
   # 
   # It is easier to treat the array as if it has a 'pivot point' at
   # the top of it that allows us to translate our visual representation into a 'code' representation.
-  # We 'pivot' the @data array by calling #reverse on it. (@data.reverse)
   # 
   # The method #place! automatically does this flip-flop for us using reversed_data and calling reversed_data.reverse
   # after it is done appending the correct objects. 
   # 
-  # "I wrote ths code but my data is backwards...?"
+  # "I wrote something ths code but my data is backwards...?"
   # 
   # "Look at #place!, then look at the graphic above. You need to reverse @data BEFORE you 
   # insert at an index because we have it in a kind of semantic 'display mode'
