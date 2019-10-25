@@ -14,7 +14,7 @@ class Board
   end
 
   # ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
-  # !! Important !!
+  # !! IMPORTANT !!
   # Note the method #indexes_at pulls indexes for the REVERSED VERSION OF THE @data ARRAY. (i.e. @data.reverse)
   # We do this because it is easier to simply reverse the array and insert based on the tile data given to us as an argument.
   # This also makes it so we can set the strings for 'empty' spaces as nil values if we want to without it causing side-effects.
@@ -62,7 +62,6 @@ class Board
   # 
   # ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
 
-
   def indexes_at(tile)
     tile = tile.downcase
 
@@ -72,7 +71,7 @@ class Board
     # The number given to us is always going to be 1 less than the index we need to target on the y axis.
     y = chunks[1].to_i - 1
 
-    # Check out helpers.rb. All this method does is translate letters into the corresponding index value.
+    # Check out helpers.rb. All this method does is translate a letter into the corresponding index value.
     x = BoardHelper.index_alias_for(chunks[0])   
     return [y, x]
   end
@@ -105,10 +104,10 @@ class Board
     # Nested traversal
     scaffold.each_with_index do |set, parent_index|
       # 'set' is the current row in our 2D array 'scaffold'
-      # if 'parent_index' is 0, 'set' would be: ['a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'h8']
+      # if 'parent_index' is 0, 'set' would need to be: ['a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'h8']
       set.each_with_index do |tile, child_index|
         
-        # Looks at the labels for the current parent index (0-7 -> a..h) and pulls the 
+        # Looks at 'labels' for the current parent index (0-7 -> a..h) and pulls the 
         # label corresponding to the index and adds 1 to the current child_index (0-7) to give a string
         # back with the correct tile label. i.e. 'a1', 'd4', 'h8'
         label = labels[parent_index]
@@ -149,7 +148,7 @@ class Board
           piece = Kernel.const_get(piece_name).new(color.to_s, tile)
 
           # Place it on the board. 
-          place!(piece, tile)
+          place!(piece.class, tile)
         end
       end
 
