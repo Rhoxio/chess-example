@@ -77,15 +77,15 @@ class Board
   end
 
   def place!(piece, tile)
-    # Find the index in @data where the piece needs to be places
+    # Find the index in @data where the piece needs to be placed...
     indexes = indexes_at(tile)
+
+    # Assigning simple variables to y and x for clarity...
+    y, x = indexes[0], indexes[1]
 
     # Remember the important comment above? Read it again if you don't understand why we are reversing here. :)
     # reversed_data is NOT setting @data here. 
     reversed_data = @data.reverse
-
-    # Assigning simple variables to y and x for clarity...
-    y, x = indexes[0], indexes[1]
 
     # Insert data at the coordinates specificed...
     reversed_data[y][x] = piece
@@ -109,20 +109,21 @@ class Board
         
         # Looks at 'labels' for the current parent index (0-7 -> a..h) and pulls the 
         # label corresponding to the index and adds 1 to the current child_index (0-7) to give a string
-        # back with the correct tile label. i.e. 'a1', 'd4', 'h8'
+        # back with the correct x axis tile label. i.e. 'a', 'd', 'h'
         label = labels[parent_index]
 
         # Setting the element to contain the string created in label + the corresponding y value
+        # e.x. set[child_index] = "a1"
         set[child_index] = "#{label}#{child_index+1}"
       end
     end
     # We did this in order alphabetically and numerically from top to bottom, so 
-    # transposing and reversing puts it in the correct 'visual' format for us.
+    # transposing and reversing puts @data in the correct 'visual' format for us.
     @data = scaffold.transpose.reverse
   end
 
   def new_game!
-    # Setting it up so you can see the other coordinate labels when this is printed to the console...
+    # Clearing the board...
     clear_and_set!
 
     # Grabs the initial locations and name/type formatting from our helper...
@@ -148,7 +149,7 @@ class Board
           piece = Kernel.const_get(piece_name).new(color.to_s, tile)
 
           # Place it on the board. 
-          place!(piece.class, tile)
+          place!(piece, tile)
         end
       end
 
