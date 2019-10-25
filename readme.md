@@ -17,5 +17,5 @@ The BoardHelper class provides us with a bunch of cool reference data. This isn'
 As for 'verbs', the Board class in board.rb does all of the heavy lifting. We use a lot of iteration, primarily because we need to be able to see what's going on in our data and change it as we see fit. We also have some save and transformation logic happening to the board based on the pieces given to it. Models sound familiar...
 
 #### piece.rb
-
+This is a parent class for the other pieces (King, Queen, Knight, Rook, Bishop and Pawn) that allows the child classes to attain the #location and #color attributes. The child classes pass their arguments to 'super' (which is referring to the Piece class it inherits from), allowing us to initialize the individual piece (King.new(color, tiile) for example) with the argments passed to the child object.
 
